@@ -547,9 +547,4 @@ template {
 }
 .clearfix::after {
 	clear: both;
-<<<<<<< HEAD
 }
-=======
-}
-
->>>>>>> checkpoint-4
