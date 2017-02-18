@@ -108,6 +108,11 @@ body.landing {
      color: rgb(233,50,117);
  }
 
+.links-container .navbar-link:active {
+	color: rgb(233,50,117);
+	background-color: white;
+}
+
 /**
  * Add the correct display in IE 9-.
  */
