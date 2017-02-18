@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+	<html>
+		<head>
+			<style type="text/css">
+				section {
+					display: block;
+					float: clear;
+				}
+				div {
+					width: 400px;
+					height: 200px;
+					display: inline-block;
+					float: left;
+					margin: 20px;
+				}
+
+				#absolute, #relative {
+					background: #ccc;
+					padding: 20px;
+				}
+				#absolute {
+					position: relative;
+				}
+				#absolute p {
+					position: absolute;
+					margin: auto;
+					right: 20px;
+					left: auto;
+					bottom: 20px;
+				}
+				#relative {
+					position: relative;
+				}
+				#relative p {
+					position: relative;
+				}
+				#border-box-example, #normal-box-example {
+					background: #333;
+					color: lemonchiffon;
+				}
+				#border-box-example {
+					box-sizing: border-box;
+					padding: 20px;
+
+				}
+				#normal-box-example {
+					padding: 20px;
+				}
+				#absolutebox {
+					position: absolute;
+					bottom: 20px;
+					right: 20px;
+					opacity: 0.6;
+					background: #fff;
+					box-shadow: 3px 3px 6px rgb(90, 90, 90);
+					padding: 20px;
+					box-sizing: border-box;
+					border-radius: 4px;
+				}
+				#textexplanations {
+					background: #a0a0f0;
+					padding: 20px;
+					box-shadow: 0 0 23px rgb(100, 200, 105);
+				}
+			</style>
+		</head>
+		<body>
+			<section>
+				<div id="absolute"><p>position: absolute;<br>right: 20px<br>bottom: 20px.</p></div>
+				<div id="relative"><p>position: relative;<br>padding: 20px;</p></div>
+			</section>
+			<section>
+				<div id="border-box-example"><p>Box-sizing: border-box<br>Padding is included in box size.</p></div>
+				<div id="normal-box-example"><p>Box-sizing: default;<br>Padding adds to box size.</p></div>
+			</section>
+			<section>
+				<div id="textexplanations"><p>Absolute positioning conforms to the specified edge of the parent element. Relative positioning falls at the beginning of the parent element, usually top-left.</p><p>Border-box sizing includes the padding and border in the box's height and width parameters, and will not expand the box beyond specified sizing. Default box-sizing allows padding and border to expand the box's width and height.</p></div>
+			</section>
+				<div id="absolutebox">position: absolute;<br>bottom: 20px;<br>right: 20px;<br></div>
+		</body>
+
+	</html>
