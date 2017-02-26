@@ -8,5 +8,5 @@
 		  arrItem.style.transform = "scaleX(1) translateY(0)";
 		  arrItem.style.msTransform = "scaleX(1) translateY(0)";
 		  arrItem.style.WebkitTransform = "scaleX(1) translateY(0)";
-		  arrItem.style.filter = blur(0);
+		  arrItem.style.filter = "blur(0)";
 	  };
