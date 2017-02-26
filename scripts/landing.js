@@ -1,7 +1,7 @@
- var animatePoints = function() {
-     var points = document.getElementsByClassName('point');
+var pointsArray = document.getElementsByClassName('point'); 
+var animatePoints = function(points) {
      forEach(points, restyle);
- };
+};
 
  window.onload = function() {
      if (window.innerHeight > 950) {
@@ -16,5 +16,3 @@
          }
      });
  }
- 
- animatePoints();
