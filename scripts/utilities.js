@@ -1,12 +1,11 @@
-	  var forEach = function(array, functionName) {
-			for (var i = 0; i < array.length; i++) {
-				functionName(array[i]);
-	 		}
-	  };
-	  var restyle = function(arrItem) {
-		  arrItem.style.opacity = 1;
-		  arrItem.style.transform = "scaleX(1) translateY(0)";
-		  arrItem.style.msTransform = "scaleX(1) translateY(0)";
-		  arrItem.style.WebkitTransform = "scaleX(1) translateY(0)";
-		  arrItem.style.filter = "blur(0)";
-	  };
+var animatePoints = function() {
+	var revealPoint = function() {
+   // #7
+		$(this).css({
+			opacity: 1,
+			transform: 'scaleX(1) translateY(0)',
+			filter: "blur(0)"
+		});
+	};
+	$.each($('.point'), revealPoint);
+};
