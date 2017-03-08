@@ -1,6 +1,6 @@
-	//
-	// ============================= GENERATE ALBUM SONG LIST FROM OBJECT DATA
-	//
+//
+// ============================= GENERATE ALBUM SONG LIST FROM OBJECT DATA
+//
 var createSongRow = function(songNumber, songName, songLength) {
      var template =
         '<tr class="album-view-song-item">'
@@ -10,7 +10,6 @@ var createSongRow = function(songNumber, songName, songLength) {
  
      var $row = $(template);
 	 
-
 	
 	//
 	// ============================= SET CLICK EVENTS FOR SONG ITEMS (CHANGE CURRENTLYPLAYING, TOGGLE PLAY/PAUSE ICONS)
@@ -25,24 +24,24 @@ var createSongRow = function(songNumber, songName, songLength) {
 		if (currentlyPlayingSongNumber !== songNumber) {
 			// Switch from Play -> Pause button to indicate new song is playing.
 			$(this).html(pauseButtonTemplate);
-			currentlyPlayingSongNumber = songNumber;
-         currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
+			setSong(songNumber);
          updatePlayerBarSong();
 			//updatePlayerBarSong($(this).find(".song-item-title").text, $(".album-view-artist").text);
 		} else if (currentlyPlayingSongNumber === songNumber) {
 			// Switch from Pause -> Play button to pause currently playing song.
 			$(this).html(playButtonTemplate);
          $('.main-controls .play-pause').html(playerBarPlayButton);
-         currentlyPlayingSongNumber = null;
+			setSong(null);
          currentSongFromAlbum = null;
 		}
 	};
+	
 
 	//
 	// ============================= SET MOUSEOVER AND MOUSELEAVE EVENTS FOR SONG ITEMS
 	// 
     var onHover = function(event) {
-        var songNumberCell = $(this).find('.song-item-number');
+        var songNumberCell = getSongNumberCell(songNumber);
         var songNumber = songNumberCell.attr('data-song-number');
         if (songNumber !== currentlyPlayingSongNumber) {
             songNumberCell.html(playButtonTemplate);
@@ -50,20 +49,38 @@ var createSongRow = function(songNumber, songName, songLength) {
     };
 
     var offHover = function(event) {
-        var songNumberCell = $(this).find('.song-item-number');
+        var songNumberCell = getSongNumberCell(songNumber);
         var songNumber = songNumberCell.attr('data-song-number');
         if (songNumber !== currentlyPlayingSongNumber) {
             songNumberCell.html(songNumber);
         }
 	 };
  
-     $row.find('.song-item-number').click(clickHandler);
+     getSongNumberCell(songNumber).click(clickHandler);
      $row.hover(onHover, offHover);
      return $row;
 	 
  };
 
 
+
+	
+	//
+	// ============================= SET CURRENTLYPLAYINGSONGNUMBER, CURRENTSONGFROMALBUM
+	// 
+	var setSong = function (songNumber) {
+		currentlyPlayingSongNumber = songNumber;
+      currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
+	}
+	
+	//
+	// ============================= SET CURRENTLYPLAYINGSONGNUMBER, CURRENTSONGFROMALBUM
+	// 
+	var getSongNumberCell = function (number) {
+		return $(".song-item-number").eq(number);
+	}
+	
+	
 	//
 	// ============================= SET PLAYER BAR SONG INFORMATION
 	//
@@ -130,8 +147,7 @@ var nextSong = function() {
     }
 
     // Set a new current song
-    currentlyPlayingSongNumber = currentSongIndex + 1;
-    currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
+	 setSong(currentSongIndex+1);
 
     // Update the Player Bar information
     updatePlayerBarSong();
@@ -165,8 +181,7 @@ var previousSong = function() {
     }
 
     // Set a new current song
-    currentlyPlayingSongNumber = currentSongIndex + 1;
-    currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
+	 setSong(currentSongIndex-1);
 
     // Update the Player Bar information
     updatePlayerBarSong();
