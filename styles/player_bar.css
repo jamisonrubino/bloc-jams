@@ -59,7 +59,7 @@
  .player-bar .currently-playing .artist-song-mobile {
      text-align: center;
      font-size: 0.75rem;
-     margin: 0;
+     margin: 0 10px;
      position: absolute;
      width: 100%;
      font-weight: 300;
