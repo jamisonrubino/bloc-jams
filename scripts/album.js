@@ -14,6 +14,7 @@ var setSong = function (songNumber) {
     });
     
     setVolume(currentVolume);
+    
     updateSeekBarWhileSongPlays();
 };
 
@@ -36,15 +37,12 @@ var setVolume = function(volume) {
  };
 
 
-
 //
 // ============================= GET CELL # FOR SONG
 // 
 var getSongNumberCell = function (number) {
     return $(".album-view-song-item .song-item-number").eq(number-1);
 };
-
-
 
 
 //
@@ -54,7 +52,7 @@ var createSongRow = function(songNumber, songName, songLength) {
      var template =
         '<tr class="album-view-song-item">'
       + '  <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'     + '  <td class="song-item-title">' + songName + '</td>'
-      + '  <td class="song-item-duration">' + songLength + '</td>'
+      + '  <td class="song-item-duration">' + filterTimeCode(songLength) + '</td>'
       + '</tr>';
  
      var $row = $(template);
@@ -121,10 +119,6 @@ var createSongRow = function(songNumber, songName, songLength) {
 	 
  };
 
-
-
-
-
 	
 //
 // ============================= SET PLAYER BAR SONG INFORMATION
@@ -135,6 +129,11 @@ var updatePlayerBarSong = function() {
     $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.title + " - " + currentAlbum.artist);
 	
 	$('.main-controls .play-pause').html(playerBarPauseButton);
+    
+    var setTotalTimeInPlayerBar = function (totalTime) {
+        $(".total-time").text(filterTimeCode(totalTime));
+    };
+    setTotalTimeInPlayerBar(currentAlbum.songs[currentlyPlayingSongNumber-1].duration);
 };
 
 
@@ -220,10 +219,36 @@ var setCurrentAlbum = function(album) {
              var $seekBar = $('.seek-control .seek-bar');
  
              updateSeekPercentage($seekBar, seekBarFillRatio);
+             setCurrentTimeInPlayerBar(this.getTime());
          });
      }
+    //
+    // ============================== SET CURRENT TIME IN PLAYER BAR
+    //
+    var setCurrentTimeInPlayerBar = function (currentTime) {
+        $(".current-time").text(filterTimeCode(currentTime));
+    };
  };
 
+var filterTimeCode = function (timeInSeconds) {
+    var time = Math.floor(parseFloat(timeInSeconds));
+    var timeText;
+    if (time > 59) {
+        timeText = Math.floor(time/60) + ":";
+        if (time%60 === 0) {
+            timeText += "00";
+        } else if (time%60 < 10) {
+            timeText += "0" + time%60;
+        } else {
+            timeText += time%60;
+        }
+    } else if (time < 10) {
+        timeText = "0:0" + time;
+    } else if (time >= 10) {
+        timeText = "0:" + time;
+    }
+    return timeText;
+}
 
 //
 // ============================== UPDATE SEEK BAR %
@@ -237,6 +262,8 @@ var setCurrentAlbum = function(album) {
     $seekBar.find('.fill').width(percentageString);
     $seekBar.find('.thumb').css({left: percentageString});
  };
+
+
 
 
 
